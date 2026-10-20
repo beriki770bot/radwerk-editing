@@ -1,0 +1,179 @@
+/* Phone layout first; wider screens are handled at the bottom. */
+
+/* Fonts are stored in /fonts, so nothing is loaded from Google. */
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("fonts/barlow-condensed-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("fonts/source-sans-3-variable.woff2") format("woff2");
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+:root {
+  --ink: #1f1f1f;
+  --muted: #5c5c5c;
+  --bg: #ffffff;
+  --bg-alt: #f2f2f0;
+  --dark: #222222;
+  --line: #dcdcdc;
+  /* The orange from the shop sign: only for the main button and links. */
+  --accent: #d9531e;
+  --accent-dark: #b8441a;
+  --radius: 10px;
+  --font-head: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-text: "Source Sans 3", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+h1, h2 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+}
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.7rem; }
+a { color: var(--accent-dark); }
+h2:not(:first-child) { margin-top: 2rem; }
+p { margin: 0 0 1rem; }
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Top of the page */
+.hero {
+  background: var(--dark);
+  color: #fff;
+  padding: 1.75rem 0 2rem;
+}
+.brand {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hero-grid { display: grid; gap: 1.75rem; }
+/* The promise of the page: the biggest text on it. */
+.hero h1 { font-size: 2.75rem; line-height: 1.02; }
+.hero-sub { font-size: 1.15rem; color: #cfcfcf; margin: 0; }
+
+/* Buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.btn {
+  display: block;
+  text-align: center;
+  padding: 0.95rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover, .btn-primary:focus-visible { background: var(--accent-dark); }
+.btn-secondary { background: transparent; color: #fff; border: 2px solid #fff; }
+.btn-secondary:hover, .btn-secondary:focus-visible { background: rgba(255, 255, 255, 0.12); }
+.btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* Sections */
+.section { padding: 2.5rem 0; }
+.section-alt { background: var(--bg-alt); }
+.section-dark { background: var(--dark); color: #fff; }
+
+.split { display: grid; gap: 1.5rem; }
+
+.lead { font-size: 1.2rem; margin-bottom: 1.5rem; }
+
+/* Prices */
+.prices { list-style: none; padding: 0; margin: 0; }
+.prices li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.price { font-weight: 800; white-space: nowrap; }
+
+/* Opening hours */
+.hours { width: 100%; border-collapse: collapse; }
+.section-dark .hours th, .section-dark .hours td { border-bottom-color: #444; }
+
+/* "Bring your bike in": hours and contact as one block */
+.visit { display: grid; gap: 1.5rem; }
+.visit .hours { font-size: 1.15rem; }
+.visit-head, .visit-actions { margin: 0; }
+.hours th, .hours td {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.hours th { font-weight: 600; }
+.hours td { text-align: right; white-space: nowrap; }
+
+.footer {
+  padding: 1.25rem 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.footer p { margin: 0; }
+
+/* Wider screens */
+@media (min-width: 640px) {
+  .actions { flex-direction: row; flex-wrap: wrap; }
+  .btn { display: inline-block; }
+}
+
+@media (min-width: 900px) {
+  h1 { font-size: 3rem; max-width: 24ch; }
+  .hero h1 { font-size: 4.25rem; max-width: 12ch; }
+  .visit {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "head hours" "actions hours";
+    grid-template-rows: auto 1fr;
+    column-gap: 3rem;
+    align-items: start;
+  }
+  .visit-head { grid-area: head; }
+  .visit .hours { grid-area: hours; }
+  .visit-actions { grid-area: actions; }
+  h2 { font-size: 2.1rem; }
+  .hero { padding: 3rem 0 3.5rem; }
+  .section { padding: 4rem 0; }
+  .hero-grid, .split {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+}
